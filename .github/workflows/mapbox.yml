@@ -31,8 +31,8 @@ jobs:
       - name: hello-world
         run: echo Hello, world!
 
-      - name: run model 
-        run: python linear-model.py
+      #- name: run model 
+        #run: python linear-model.py
 
       - name: docker login
         env:
@@ -44,8 +44,8 @@ jobs:
       - name: Download and run the Docker base image
         run: docker run -d --name serving_base tensorflow/serving
 
-      - name: copy model to the Docker image
-        run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
+      #- name: copy model to the Docker image
+        #run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
 
       - name: Build the custom Docker image
         run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{secrets.MODEL_NAME}}:${{ github.sha }}
